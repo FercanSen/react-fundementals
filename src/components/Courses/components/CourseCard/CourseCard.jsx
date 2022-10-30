@@ -5,11 +5,11 @@ import { mockedAuthorsList } from "../../../../constants";
 
 function CourseCard({ title, description, creationDate, duration, authors }) {
   CourseCard.propTypes = {
-    title: PropTypes.func,
+    title: PropTypes.string,
     description: PropTypes.string.isRequired,
     creationDate: PropTypes.string.isRequired,
     duration: PropTypes.string.isRequired,
-    authors: PropTypes.string.isRequired,
+    authors: PropTypes.array,
   };
   const authorNames = [];
 

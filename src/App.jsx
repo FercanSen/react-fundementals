@@ -6,9 +6,6 @@ import { mockedAuthorsList } from "./constants";
 import { mockedCoursesList } from "./constants";
 
 function App() {
-  console.log("App");
-  console.log(mockedCoursesList);
-  console.log(mockedAuthorsList);
   return (
     <>
       <Header />

@@ -1,19 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Input({ labelText, placeholderText, onChange }) {
+function Input({ labelText, placeholderText, inputValue, onChange }) {
   Input.propTypes = {
     labelText: PropTypes.string,
     placeholderText: PropTypes.string,
+    inputValue: PropTypes.string,
     onChange: PropTypes.func,
   };
   return (
     <div>
       <input
-      className="border-2 border-blue-500 rounded-lg"
+        className="border-2 border-blue-500 rounded-lg"
+        id="input"
         name="input"
         placeholder={placeholderText}
         label={labelText}
+        value={inputValue}
         onChange={onChange}
       ></input>
       <label htmlFor="input"></label>
