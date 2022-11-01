@@ -3,6 +3,10 @@ function getCourseDuration(duration) {
   let mm = duration - hh * 60;
   let hours = "hours";
 
+  if (duration == undefined) {
+    return "No duration given.";
+  }
+
   if (mm < 10) {
     mm = "0" + mm;
   }

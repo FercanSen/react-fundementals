@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../common/Button/Button";
 import { mockedAuthorsList } from "../../constants";
+import getCourseDuration from "../../helpers/getCourseDuration";
 import AuthorItem from "./components/AuthorItem/AuthorItem";
 
 function CreateCourse() {
   const [authorInput, setAuthorInput] = useState("");
+  const [duration, setDuration] = useState();
   const [courseAuthors, setCourseAuthors] = useState([]);
   const [author, setAuthor] = useState("");
   let authorId = Math.random();
@@ -95,12 +97,14 @@ function CreateCourse() {
           <h2 className="my-2">Duration</h2>
           <input
             className="border-2 border-blue-500 rounded"
-            type="text"
+            type="number"
             placeholder="Enter duration in minutes..."
             name="duration"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
           />
           <label htmlFor="duration"></label>
-          <h2 className="my-2">Duration: 00:00 hours</h2>
+          <h2 className="my-2">Duration: {getCourseDuration(duration)}</h2>
         </div>
         {/* <div>{courseAuthors}</div> */}
 
