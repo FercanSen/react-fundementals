@@ -4,14 +4,18 @@ import CourseCard from "./components/CourseCard/CourseCard";
 import SearchBar from "./components/SearchBar/SearchBar";
 import PropTypes from "prop-types";
 import getCourseDuration from "../../helpers/getCourseDuration";
-import CreateCourse from "../CreateCourse/CreateCourse";
 
-export default function Courses({ mockedCoursesList }) {
+export default function Courses({
+  mockedCoursesList,
+  showCreateCourseForm,
+  setShowCreateCourseForm,
+}) {
   Courses.propTypes = {
     mockedCoursesList: PropTypes.array,
+    showCreateCourseForm: PropTypes.bool,
+    setShowCreateCourseForm: PropTypes.func,
   };
   const [query, setQuery] = useState("");
-  const [showCreateCourseFrom, setShowCreateCourseFrom] = useState(false);
 
   function handleChange(event) {
     setQuery(event.target.value);
@@ -23,10 +27,9 @@ export default function Courses({ mockedCoursesList }) {
         <SearchBar onChange={handleChange} />
         <Button
           buttonText={"Add new course"}
-          onClick={() => setShowCreateCourseFrom(!showCreateCourseFrom)}
+          onClick={() => setShowCreateCourseForm(!showCreateCourseForm)}
         />
       </div>
-      {showCreateCourseFrom && <CreateCourse />}
       {mockedCoursesList
         .filter((course) => course.title.toLocaleLowerCase().includes(query))
         .map((element, index) => {
