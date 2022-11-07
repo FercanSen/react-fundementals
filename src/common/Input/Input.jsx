@@ -10,16 +10,17 @@ function Input({ labelText, placeholderText, inputValue, onChange }) {
   };
   return (
     <div>
-      <input
-        className="border-2 border-blue-500 rounded-lg"
-        id="input"
-        name="input"
-        placeholder={placeholderText}
-        label={labelText}
-        value={inputValue}
-        onChange={onChange}
-      ></input>
-      <label htmlFor="input"></label>
+      <div className="flex flex-col">
+        <label htmlFor="input">{labelText}</label>
+        <input
+          className="border-2 border-blue-500 rounded-lg"
+          id="input"
+          name="input"
+          placeholder={placeholderText}
+          value={inputValue}
+          onChange={onChange}
+        />
+      </div>
     </div>
   );
 }
