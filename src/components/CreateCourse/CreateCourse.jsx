@@ -37,9 +37,14 @@ function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
   };
 
   const createAuthor = () => {
+    let shouldReturn = false;
     mockedAuthorsList.forEach((element) => {
-      if (element.name === authorInput) this.return;
+      if (element.name === authorInput) {
+        shouldReturn = true;
+        return;
+      }
     });
+    if (shouldReturn) return;
 
     if (authorInput)
       mockedAuthorsList.push({ id: authorId, name: authorInput });
