@@ -27,10 +27,6 @@
         "max-len": ["error", { "code": 80 }]
       }
     ]
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
   }
+  
 }

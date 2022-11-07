@@ -5,6 +5,7 @@ import formatCreationDate from "../../helpers/formatCreationDate";
 import getCourseDuration from "../../helpers/getCourseDuration";
 import AuthorItem from "./components/AuthorItem/AuthorItem";
 import PropTypes from "prop-types";
+import Input from "../../common/Input/Input";
 
 function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
   CreateCourse.propTypes = {
@@ -72,27 +73,26 @@ function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col m-8 p-4 border-2 rounded">
-        <div className="flex  justify-between items-center">
+        <div className="flex justify-between items-center">
           <div className="flex-col">
-            <h2 className="my-2">Title</h2>
-            <input
-              className="border-2 border-blue-500 rounded"
-              type="text"
-              placeholder="Enter Title..."
-              name="title"
-              required
+            <Input
+              labelText={"Title"}
+              placeholderText={"Enter Title..."}
+              inputName={"title"}
+              inputType={"text"}
+              isRequired={true}
             />
-            <label htmlFor="title"></label>
           </div>
           <Button buttonText={"Create course"} btnType={"submit"} />
         </div>
-        <h2 className="my-2">Description</h2>
-        <textarea
-          className="h-36 border-2 border-blue-500 rounded"
-          name="description"
-          placeholder="Enter Description"
-          minLength="2"
-          required
+        <Input
+          className="my-20"
+          labelText={"Description"}
+          placeholderText={"Enter Description"}
+          inputName={"Description"}
+          inputType={"textarea"}
+          isRequired={true}
+          minLength={"2"}
         />
         <div className="flex justify-evenly ">
           <h2>Add author</h2>
@@ -100,17 +100,15 @@ function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
         </div>
         <div className="flex">
           <div className="flex flex-col w-1/2 p-2 ">
-            <h2 className="my-2">Author name</h2>
-            <input
-              className="border-2 border-blue-500 rounded"
-              type="text"
-              placeholder="Enter author name..."
-              name="authorName"
-              minLength="2"
-              value={authorInput}
+            <Input
+              labelText={"Author name"}
+              placeholderText={"Enter author name..."}
+              inputName={"authorName"}
+              inputType={"textarea"}
+              minLength={"2"}
+              inputValue={authorInput}
               onChange={handleChange}
             />
-            <label htmlFor="authorName"></label>
             <div className="flex flex-row justify-center my-2">
               <Button
                 btnType={"button"}
@@ -137,17 +135,15 @@ function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
         </div>
         <div className="flex justify-evenly">
           <div className="flex flex-col w-1/2 p-2 ">
-            <h2 className="my-2">Duration</h2>
-            <input
-              className="border-2 border-blue-500 rounded"
-              type="number"
-              placeholder="Enter duration in minutes..."
-              name="duration"
-              value={duration}
+            <Input
+              labelText={"Duration"}
+              placeholderText={"Enter duration in minutes..."}
+              inputName={"duration"}
+              inputType={"number"}
+              inputValue={duration}
+              isRequired={true}
               onChange={(e) => setDuration(e.target.value)}
-              required
             />
-            <label htmlFor="duration"></label>
             <h2 className="my-2">Duration: {getCourseDuration(duration)}</h2>
           </div>
           <div className="w-1/2">
