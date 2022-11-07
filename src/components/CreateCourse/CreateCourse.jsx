@@ -15,7 +15,6 @@ function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
   const [authorInput, setAuthorInput] = useState("");
   const [duration, setDuration] = useState();
   const [courseAuthors, setCourseAuthors] = useState([]);
-  const [author, setAuthor] = useState("");
   let authorId = Math.random();
 
   const [course, setCourse] = useState({
@@ -33,18 +32,18 @@ function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
     }
   }, [course]);
 
-  useEffect(() => {
-    if (author) {
-      mockedAuthorsList.push({ id: authorId, name: author });
-    }
-  }, [author]);
-
   const handleChange = (event) => {
     setAuthorInput(event.target.value);
   };
 
-  const handleClick = () => {
-    setAuthor(authorInput);
+  const createAuthor = () => {
+    mockedAuthorsList.forEach((element) => {
+      if (element.name === authorInput) this.return;
+    });
+
+    if (authorInput)
+      mockedAuthorsList.push({ id: authorId, name: authorInput });
+
     setAuthorInput("");
   };
 
@@ -58,7 +57,7 @@ function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
     setCourseAuthors(courseAuthors.filter((item) => item !== authorName));
   }
 
-  function handleSubmit(event) {
+  function handleFormSubmit(event) {
     event.preventDefault();
     setCourse({
       id: Math.random(),
@@ -71,7 +70,7 @@ function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
     setShowCreateCourseForm(!showCreateCourseForm);
   }
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleFormSubmit}>
       <div className="flex flex-col m-8 p-4 border-2 rounded">
         <div className="flex justify-between items-center">
           <div className="flex-col">
@@ -113,7 +112,7 @@ function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
               <Button
                 btnType={"button"}
                 buttonText={"Create author"}
-                onClick={handleClick}
+                onClick={createAuthor}
               />
             </div>
           </div>
