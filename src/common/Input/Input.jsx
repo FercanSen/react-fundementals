@@ -28,7 +28,12 @@ function Input({
 
   return (
     <div className="flex flex-col">
-      <label className="my-2" htmlFor="input">{labelText}</label>
+      {labelText && (
+        <label className="my-2" htmlFor="input">
+          {labelText}
+        </label>
+      )}
+
       <input
         className="border-2 border-blue-500 rounded"
         id="input"
