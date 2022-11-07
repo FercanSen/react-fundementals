@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Input({ labelText, placeholderText, inputValue, onChange }) {
+function Input({ labelText, placeholderText, inputValue, inputName, onChange }) {
   Input.propTypes = {
     labelText: PropTypes.string,
     placeholderText: PropTypes.string,
     inputValue: PropTypes.string,
+    inputName: PropTypes.string,
     onChange: PropTypes.func,
   };
   return (
@@ -15,7 +16,7 @@ function Input({ labelText, placeholderText, inputValue, onChange }) {
         <input
           className="border-2 border-blue-500 rounded-lg"
           id="input"
-          name="input"
+          name={inputName}
           placeholder={placeholderText}
           value={inputValue}
           onChange={onChange}
