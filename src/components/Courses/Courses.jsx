@@ -1,25 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../common/Button/Button";
 import CourseCard from "./components/CourseCard/CourseCard";
 import SearchBar from "./components/SearchBar/SearchBar";
-import PropTypes from "prop-types";
 import getCourseDuration from "../../helpers/getCourseDuration";
+import { mockedCoursesList } from "../../constants";
+import { useNavigate } from "react-router-dom";
 
-export default function Courses({
-  mockedCoursesList,
-  showCreateCourseForm,
-  setShowCreateCourseForm,
-}) {
-  Courses.propTypes = {
-    mockedCoursesList: PropTypes.array,
-    showCreateCourseForm: PropTypes.bool,
-    setShowCreateCourseForm: PropTypes.func,
-  };
+export default function Courses() {
   const [query, setQuery] = useState("");
+  console.log("User Token: " + localStorage.getItem("userToken"));
 
   function handleChange(event) {
     setQuery(event.target.value);
   }
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // IF user token exist navigate to courses, else register/login
+    if (!localStorage.getItem("userToken")) {
+      navigate("/registration");
+    } else {
+      navigate("/courses");
+    }
+  }, []);
 
   return (
     <div className="m-8">
@@ -27,7 +31,7 @@ export default function Courses({
         <SearchBar onChange={handleChange} />
         <Button
           buttonText={"Add new course"}
-          onClick={() => setShowCreateCourseForm(!showCreateCourseForm)}
+          onClick={() => navigate("/courses/add")}
         />
       </div>
       {mockedCoursesList
@@ -36,6 +40,7 @@ export default function Courses({
           return (
             <CourseCard
               key={index}
+              id={element.id}
               title={element.title}
               description={element.description}
               creationDate={element.creationDate}

@@ -6,8 +6,9 @@ import getCourseDuration from "../../helpers/getCourseDuration";
 import AuthorItem from "./components/AuthorItem/AuthorItem";
 import PropTypes from "prop-types";
 import Input from "../../common/Input/Input";
+import { useNavigate } from "react-router-dom";
 
-function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
+function CreateCourse() {
   CreateCourse.propTypes = {
     showCreateCourseForm: PropTypes.bool,
     setShowCreateCourseForm: PropTypes.func,
@@ -16,6 +17,7 @@ function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
   const [duration, setDuration] = useState();
   const [courseAuthors, setCourseAuthors] = useState([]);
   let authorId = Math.random();
+  const navigate = useNavigate();
 
   const [course, setCourse] = useState({
     id: "0",
@@ -72,8 +74,9 @@ function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
       duration: event.target.elements.duration.value,
       authors: [authorId],
     });
-    setShowCreateCourseForm(!showCreateCourseForm);
+    navigate("/courses");
   }
+
   return (
     <form onSubmit={handleFormSubmit}>
       <div className="flex flex-col m-8 p-4 border-2 rounded">
@@ -93,7 +96,7 @@ function CreateCourse({ showCreateCourseForm, setShowCreateCourseForm }) {
           className="my-20"
           labelText={"Description"}
           placeholderText={"Enter Description"}
-          inputName={"Description"}
+          inputName={"description"}
           inputType={"textarea"}
           isRequired={true}
           minLength={"2"}
