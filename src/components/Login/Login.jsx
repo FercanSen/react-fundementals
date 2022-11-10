@@ -16,7 +16,7 @@ function Login() {
         password: event.target.elements.password.value,
       })
       .then(function (response) {
-        console.log(response.data.result);
+        localStorage["username"] = response.data.user.name;
         localStorage["userToken"] = response.data.result;
         navigate("/courses");
       })

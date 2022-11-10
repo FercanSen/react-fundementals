@@ -5,7 +5,8 @@ import Logo from "./components/Logo/Logo";
 
 function Header() {
   let location = useLocation();
-  console.log(location.pathname);
+  let username = localStorage.getItem("username");
+  console.log("Username: " + username);
 
   if (location.pathname === "/registration") {
     return (
@@ -24,7 +25,7 @@ function Header() {
       <header className="flex justify-between items-center h-20 mx-24 py-2">
         <Logo />
         <div className="flex justify-around items-center w-72">
-          <h2>John Doe</h2>
+          <h2>{username}</h2>
           <Link to={"/login"}>
             <Button
               buttonText="Logout"
