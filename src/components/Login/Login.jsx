@@ -6,7 +6,7 @@ import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
-  
+
   function login(event) {
     event.preventDefault();
     axios
@@ -22,9 +22,6 @@ function Login() {
       })
       .catch(function (error) {
         console.log(error);
-        console.log(error.response);
-        console.log(error.message);
-        console.log(error.request);
       });
   }
 

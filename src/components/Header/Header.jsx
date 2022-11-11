@@ -6,7 +6,6 @@ import Logo from "./components/Logo/Logo";
 function Header() {
   let location = useLocation();
   let username = localStorage.getItem("username");
-  console.log("Username: " + username);
 
   if (location.pathname === "/registration") {
     return (
