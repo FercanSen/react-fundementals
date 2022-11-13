@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addCourse } from "../../store";
+// import addCourse from "../../store/courses/reducer";
 
 export default function Courses() {
   const navigate = useNavigate();
@@ -14,15 +15,10 @@ export default function Courses() {
   const dispatch = useDispatch();
   let courses = useSelector((state) => state.courses.courses);
 
-  console.log("State: ");
-  console.log(courses);
-
   useEffect(() => {
     axios
       .get("http://localhost:4000/courses/all")
       .then(function (response) {
-        console.log("response");
-        console.log(response.data.result[0]);
         dispatch(addCourse(response.data.result[0]));
       })
       .catch(function (error) {

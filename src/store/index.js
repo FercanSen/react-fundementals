@@ -33,12 +33,17 @@ const courses = createSlice({
   initialState,
   reducers: {
     addCourse: (state, action) => {
-      console.log("action.type");
-      console.log(action.type);
       state.courses = [action.payload, ...state.courses];
+    },
+    deleteCourse: (state, action) => {
+      const indexOfObject = state.courses.findIndex((object) => {
+        return object.id === action.payload;
+      });
+      state.courses.splice(indexOfObject, 1);
     },
   },
 });
 
 export const { addCourse } = courses.actions;
+export const { deleteCourse } = courses.actions;
 export default courses.reducer;

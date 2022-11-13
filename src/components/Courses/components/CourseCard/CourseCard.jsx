@@ -2,6 +2,8 @@ import React from "react";
 import Button from "../../../../common/Button/Button";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteCourse } from "../../../../store";
 
 function CourseCard({
   id,
@@ -20,6 +22,8 @@ function CourseCard({
     authors: PropTypes.array,
   };
 
+  const dispatch = useDispatch();
+
   return (
     <div className="flex mt-8 border-2 border-blue-500 rounded-lg">
       <div className="flex-col my-3 px-3 ">
@@ -32,10 +36,17 @@ function CourseCard({
         </div>
         <div>Duration: {duration}</div>
         <div>Created: {creationDate}</div>
-        <div className="flex flex-row justify-center w-full">
+        <div className="flex flex-row gap-2 justify-center w-full">
           <Link to={`/courses/${id}`}>
             <Button buttonText={"Show Course"} />
           </Link>
+          <Button
+            buttonText={"Delete"}
+            onClick={() => {
+              dispatch(deleteCourse(id));
+            }}
+          />
+          <Button buttonText={"Edit"} />
         </div>
       </div>
     </div>
