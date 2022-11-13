@@ -2,7 +2,6 @@ import React from "react";
 import Button from "../../../../common/Button/Button";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import getAuthorNames from "../../../../helpers/getAuthorNames";
 
 function CourseCard({
   id,
@@ -29,7 +28,7 @@ function CourseCard({
       </div>
       <div className="flex flex-col gap-2 justify-between items-start h-max my-3 px-3">
         <div className="truncate w-96">
-          Authors: {getAuthorNames(authors).join(", ")}
+          Authors: {authors /* getAuthorNames(authors).join(", ") */}
         </div>
         <div>Duration: {duration}</div>
         <div>Created: {creationDate}</div>

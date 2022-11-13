@@ -11,7 +11,7 @@ function SearchBar({
   onChange,
 }) {
   SearchBar.propTypes = {
-    btnOnClick: PropTypes.string,
+    btnOnClick: PropTypes.func,
     inputLabelText: PropTypes.string,
     inputPlaceholderText: PropTypes.string,
     inputValue: PropTypes.string,

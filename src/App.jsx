@@ -8,6 +8,14 @@ import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
 import CourseInfo from "./components/CourseInfo/CourseInfo";
 import CreateCourse from "./components/CreateCourse/CreateCourse";
+import { configureStore } from "@reduxjs/toolkit";
+import courses from "./store";
+
+export const store = configureStore({
+  reducer: {
+    courses,
+  },
+});
 
 function App() {
   return (
