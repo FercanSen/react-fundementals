@@ -14,6 +14,9 @@ export default function Courses() {
 
   const dispatch = useDispatch();
   let courses = useSelector((state) => state.courses.courses);
+  let user = useSelector((state) => state.courses.user);
+  console.log("User: ");
+  console.log(user);
 
   useEffect(() => {
     axios

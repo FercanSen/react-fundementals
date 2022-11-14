@@ -45,10 +45,19 @@ const courses = createSlice({
     createAuthor: (state, action) => {
       state.authors = [action.payload, ...state.authors];
     },
+    saveUser: (state, action) => {
+      state.user = {
+        isAuth: action.payload[0],
+        name: action.payload[1],
+        email: action.payload[2],
+        tokem: action.payload[3],
+      };
+    },
   },
 });
 
 export const { addCourse } = courses.actions;
 export const { deleteCourse } = courses.actions;
 export const { createAuthor } = courses.actions;
+export const { saveUser } = courses.actions;
 export default courses.reducer;

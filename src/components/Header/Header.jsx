@@ -1,11 +1,16 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import Button from "../../common/Button/Button";
+import { saveUser } from "../../store";
 import Logo from "./components/Logo/Logo";
 
 function Header() {
   let location = useLocation();
   let username = localStorage.getItem("username");
+
+  const dispatch = useDispatch();
+  // const user = useSelector((state) => state.courses.user);
 
   if (location.pathname === "/registration") {
     return (
@@ -28,7 +33,10 @@ function Header() {
           <Link to={"/login"}>
             <Button
               buttonText="Logout"
-              onClick={() => localStorage.removeItem("userToken")}
+              onClick={() => {
+                localStorage.removeItem("userToken");
+                dispatch(saveUser([false, "", "", ""]));
+              }}
             />
           </Link>
         </div>

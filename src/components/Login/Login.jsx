@@ -1,11 +1,15 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Button from "../../common/Button/Button";
 import Input from "../../common/Input/Input";
 import axios from "axios";
+import { saveUser } from "../../store";
 
 function Login() {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   function login(event) {
     event.preventDefault();
@@ -16,6 +20,15 @@ function Login() {
         password: event.target.elements.password.value,
       })
       .then(function (response) {
+        console.log(response.data.user.name);
+        dispatch(
+          saveUser([
+            true,
+            response.data.user.name,
+            response.data.user.email,
+            response.data.result,
+          ])
+        );
         localStorage["username"] = response.data.user.name;
         localStorage["userToken"] = response.data.result;
         navigate("/courses");

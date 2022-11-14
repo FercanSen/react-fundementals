@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import Button from "../../common/Button/Button";
-// import formatCreationDate from "../../helpers/formatCreationDate";
+import formatCreationDate from "../../helpers/formatCreationDate";
 import getCourseDuration from "../../helpers/getCourseDuration";
 import AuthorItem from "./components/AuthorItem/AuthorItem";
 import PropTypes from "prop-types";
 import Input from "../../common/Input/Input";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createAuthor } from "../../store";
+import { addCourse, createAuthor } from "../../store";
 
 function CreateCourse() {
   CreateCourse.propTypes = {
@@ -17,19 +17,19 @@ function CreateCourse() {
   const [authorInput, setAuthorInput] = useState("");
   const [duration, setDuration] = useState();
   const [courseAuthors, setCourseAuthors] = useState([]);
-  // let authorId = Math.random();
+  let authorId = Math.random();
   const navigate = useNavigate();
   const authors = useSelector((state) => state.courses.authors);
   const dispatch = useDispatch();
 
-  // const [course, setCourse] = useState({
-  //   id: "0",
-  //   title: "",
-  //   description: "",
-  //   creationDate: "",
-  //   duration: 0,
-  //   authors: [authorId],
-  // });
+  const [course, setCourse] = useState({
+    id: "0",
+    title: "",
+    description: "",
+    creationDate: "",
+    duration: 0,
+    authors: [authorId],
+  });
 
   // useEffect(() => {
   //   if (course.title != "") {
@@ -69,19 +69,24 @@ function CreateCourse() {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    // setCourse({
-    //   id: Math.random(),
-    //   title: event.target.elements.title.value,
-    //   description: event.target.elements.description.value,
-    //   creationDate: formatCreationDate(),
-    //   duration: event.target.elements.duration.value,
-    //   authors: [authorId],
-    // });
-    navigate("/courses");
+    setCourse({
+      id: Math.random(),
+      title: event.target.elements.title.value,
+      description: event.target.elements.description.value,
+      creationDate: formatCreationDate(),
+      duration: event.target.elements.duration.value,
+      authors: [authorId],
+    });
   }
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form
+      onSubmit={() => {
+        handleFormSubmit;
+        dispatch(addCourse(course));
+        navigate("/courses");
+      }}
+    >
       <div className="flex flex-col m-8 p-4 border-2 rounded">
         <div className="flex justify-between items-center">
           <div className="flex-col">
