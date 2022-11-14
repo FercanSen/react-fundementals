@@ -7,7 +7,7 @@ export const initialState = {
     email: "", // default value - empty string. After success login - email of user
     token: "", // default value - empty string or token value from localStorage. After success login - value from API /login response.
   },
-  // todo: initialize this courses to empty array, delete mock data
+  // todo: initialize this courses to an empty array, delete mock data
   courses: [
     {
       id: "de5aaa59-90f5-4dbc-b8a9-aaf205c551ba",
@@ -25,7 +25,8 @@ export const initialState = {
       ],
     },
   ], // list of courses. Default value - empty array. After success getting courses - value from API /courses/all response.
-  authors: [], //  list of authors. Default value - empty array. After success getting authors - value from API /authors/all response.
+  // todo: initialize this authors to empty an array, delete mock data
+  authors: ["test"], //  list of authors. Default value - empty array. After success getting authors - value from API /authors/all response.
 };
 
 const courses = createSlice({
@@ -41,9 +42,13 @@ const courses = createSlice({
       });
       state.courses.splice(indexOfObject, 1);
     },
+    createAuthor: (state, action) => {
+      state.authors = [action.payload, ...state.authors];
+    },
   },
 });
 
 export const { addCourse } = courses.actions;
 export const { deleteCourse } = courses.actions;
+export const { createAuthor } = courses.actions;
 export default courses.reducer;
