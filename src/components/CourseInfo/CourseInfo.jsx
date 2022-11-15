@@ -1,7 +1,7 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Button from "../../common/Button/Button";
-import { mockedCoursesList } from "../../constants";
 import getAuthorNames from "../../helpers/getAuthorNames";
 import getCourseDuration from "../../helpers/getCourseDuration";
 
@@ -12,7 +12,10 @@ function CourseInfo() {
   let duration;
   let authors;
   let creationDate;
-  mockedCoursesList.forEach((element) => {
+
+  const courses = useSelector((state) => state.courses.courses);
+
+  courses.forEach((element) => {
     if (courseId == element.id) {
       title = element.title;
       description = element.description;

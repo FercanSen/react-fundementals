@@ -6,23 +6,27 @@ import getCourseDuration from "../../helpers/getCourseDuration";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addCourse } from "../../store";
-// import addCourse from "../../store/courses/reducer";
+import { addAuthor, addCourse } from "../../store";
 
 export default function Courses() {
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
   let courses = useSelector((state) => state.courses.courses);
-  let user = useSelector((state) => state.courses.user);
-  console.log("User: ");
-  console.log(user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
       .get("http://localhost:4000/courses/all")
       .then(function (response) {
         dispatch(addCourse(response.data.result[0]));
+      })
+      .catch(function (error) {
+        console.log(error.response);
+      });
+    axios
+      .get("http://localhost:4000/authors/all")
+      .then(function (response) {
+        dispatch(addAuthor(response.data.result));
       })
       .catch(function (error) {
         console.log(error.response);

@@ -20,7 +20,6 @@ function Login() {
         password: event.target.elements.password.value,
       })
       .then(function (response) {
-        console.log(response.data.user.name);
         dispatch(
           saveUser([
             true,

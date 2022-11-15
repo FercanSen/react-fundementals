@@ -19,7 +19,7 @@ function CreateCourse() {
   const [courseAuthors, setCourseAuthors] = useState([]);
   let authorId = Math.random();
   const navigate = useNavigate();
-  const authors = useSelector((state) => state.courses.authors);
+  const authors = useSelector((state) => state.courses.authors[0]);
   const dispatch = useDispatch();
 
   const [course, setCourse] = useState({
@@ -129,21 +129,33 @@ function CreateCourse() {
                 btnType={"button"}
                 buttonText={"Create author"}
                 onClick={() => {
-                  dispatch(createAuthor(authorInput));
+                  let shouldReturn = false;
+                  authors.forEach((element) => {
+                    if (element.name === authorInput) {
+                      shouldReturn = true;
+                      return;
+                    }
+                  });
+                  if (shouldReturn) return;
+                  dispatch(
+                    createAuthor({ name: authorInput, id: Math.random() })
+                  );
                 }}
               />
             </div>
           </div>
           <div className="w-1/2 ">
-            {authors.map((element, index) => (
-              <AuthorItem
-                key={index}
-                authorName={element}
-                btnText="Add author"
-                btnOnClick={() => addAuthor(element)}
-                btnType={"button"}
-              />
-            ))}
+            {authors.map((element, index) => {
+              return (
+                <AuthorItem
+                  key={index}
+                  authorName={element.name}
+                  btnText="Add author"
+                  btnOnClick={() => addAuthor(element.name)}
+                  btnType={"button"}
+                />
+              );
+            })}
           </div>
         </div>
         <div className="flex justify-evenly ">
