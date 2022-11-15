@@ -1,12 +1,16 @@
-import { mockedAuthorsList } from "../constants";
+import { useSelector } from "react-redux";
 
-function getAuthorNames(authors) {
+function getAuthorNames(authorParams) {
+  const authors = useSelector((state) => state.courses.authors);
   const authorNames = [];
 
-  mockedAuthorsList.map((element) => {
-    if (authors.includes(element.id)) {
-      authorNames.push(element.name);
-    }
+  authorParams.forEach((paramElement) => {
+    authors.forEach((author) => {
+      if (paramElement === author.id) {
+        console.log(author.name);
+        authorNames.push(author.name);
+      }
+    });
   });
 
   return authorNames;
