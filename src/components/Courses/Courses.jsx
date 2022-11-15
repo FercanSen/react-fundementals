@@ -46,7 +46,6 @@ export default function Courses() {
     <div className="m-8">
       <div className="flex justify-between">
         <SearchBar />
-        {/* <SearchBar btnOnClick={() => dispatch(addCourse("first"))} /> */}
         <Button
           buttonText={"Add new course"}
           onClick={() => navigate("/courses/add")}

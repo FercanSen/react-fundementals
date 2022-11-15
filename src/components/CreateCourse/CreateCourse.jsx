@@ -19,7 +19,7 @@ function CreateCourse() {
   const [courseAuthors, setCourseAuthors] = useState([]);
   let authorId = Math.random();
   const navigate = useNavigate();
-  const authors = useSelector((state) => state.courses.authors[0]);
+  const authors = useSelector((state) => state.courses.authors);
   const dispatch = useDispatch();
 
   const [course, setCourse] = useState({

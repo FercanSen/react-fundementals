@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteCourse } from "../../../../store";
+import getAuthorNames from "../../../../helpers/getAuthorNames";
 
 function CourseCard({
   id,
@@ -32,7 +33,7 @@ function CourseCard({
       </div>
       <div className="flex flex-col gap-2 justify-between items-start h-max my-3 px-3">
         <div className="truncate w-96">
-          Authors: {authors /* getAuthorNames(authors).join(", ") */}
+          Authors: {getAuthorNames(authors).join(", ")}
         </div>
         <div>Duration: {duration}</div>
         <div>Created: {creationDate}</div>
