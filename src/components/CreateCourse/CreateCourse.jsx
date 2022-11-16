@@ -17,7 +17,6 @@ function CreateCourse() {
   const [authorInput, setAuthorInput] = useState("");
   const [duration, setDuration] = useState();
   const [courseAuthors, setCourseAuthors] = useState([]);
-  let authorId = Math.random();
   const navigate = useNavigate();
   const authors = useSelector((state) => state.courses.authors);
   const dispatch = useDispatch();
@@ -61,7 +60,7 @@ function CreateCourse() {
         description: event.target.elements.description.value,
         creationDate: formatCreationDate(),
         duration: event.target.elements.duration.value,
-        authors: [authorId],
+        authors: courseAuthors,
       })
     );
     navigate("/courses");
@@ -133,7 +132,7 @@ function CreateCourse() {
                   key={index}
                   authorName={element.name}
                   btnText="Add author"
-                  btnOnClick={() => addAuthor(element.name)}
+                  btnOnClick={() => addAuthor(element.id)}
                   btnType={"button"}
                 />
               );
