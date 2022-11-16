@@ -7,7 +7,6 @@ function getAuthorNames(authorParams) {
   authorParams.forEach((paramElement) => {
     authors.forEach((author) => {
       if (paramElement === author.id) {
-        console.log(author.name);
         authorNames.push(author.name);
       }
     });

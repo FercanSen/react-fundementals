@@ -22,25 +22,6 @@ function CreateCourse() {
   const authors = useSelector((state) => state.courses.authors);
   const dispatch = useDispatch();
 
-  const [course, setCourse] = useState({
-    id: "0",
-    title: "",
-    description: "",
-    creationDate: "",
-    duration: 0,
-    authors: [authorId],
-  });
-
-  // useEffect(() => {
-  //   if (course.title != "") {
-  //     mockedCoursesList.push(course);
-  //   }
-  // }, [course]);
-
-  const handleChange = (event) => {
-    setAuthorInput(event.target.value);
-  };
-
   // const createAuthor = () => {
   //   let shouldReturn = false;
   //   mockedAuthorsList.forEach((element) => {
@@ -57,6 +38,10 @@ function CreateCourse() {
   //   setAuthorInput("");
   // };
 
+  const handleChange = (event) => {
+    setAuthorInput(event.target.value);
+  };
+
   function addAuthor(authorName) {
     if (courseAuthors.includes(authorName)) return;
 
@@ -69,24 +54,21 @@ function CreateCourse() {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    setCourse({
-      id: Math.random(),
-      title: event.target.elements.title.value,
-      description: event.target.elements.description.value,
-      creationDate: formatCreationDate(),
-      duration: event.target.elements.duration.value,
-      authors: [authorId],
-    });
+    dispatch(
+      addCourse({
+        id: Math.random().toString(),
+        title: event.target.elements.title.value,
+        description: event.target.elements.description.value,
+        creationDate: formatCreationDate(),
+        duration: event.target.elements.duration.value,
+        authors: [authorId],
+      })
+    );
+    navigate("/courses");
   }
 
   return (
-    <form
-      onSubmit={() => {
-        handleFormSubmit;
-        dispatch(addCourse(course));
-        navigate("/courses");
-      }}
-    >
+    <form onSubmit={(event) => handleFormSubmit(event)}>
       <div className="flex flex-col m-8 p-4 border-2 rounded">
         <div className="flex justify-between items-center">
           <div className="flex-col">
