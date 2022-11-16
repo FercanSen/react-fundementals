@@ -1,7 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Input({
+const propTypes = {
+  labelText: PropTypes.string,
+  placeholderText: PropTypes.string,
+  inputType: PropTypes.string,
+  inputValue: PropTypes.string,
+  inputName: PropTypes.string,
+  onChange: PropTypes.func,
+  isRequired: PropTypes.bool,
+  minLength: PropTypes.string,
+};
+
+const Input = ({
   labelText,
   placeholderText,
   inputType,
@@ -10,18 +21,7 @@ function Input({
   onChange,
   isRequired,
   minLength,
-}) {
-  Input.propTypes = {
-    labelText: PropTypes.string,
-    placeholderText: PropTypes.string,
-    inputType: PropTypes.string,
-    inputValue: PropTypes.string,
-    inputName: PropTypes.string,
-    onChange: PropTypes.func,
-    isRequired: PropTypes.bool,
-    minLength: PropTypes.string,
-  };
-
+}) => {
   let required = false;
 
   if (isRequired) required = true;
@@ -47,6 +47,7 @@ function Input({
       />
     </div>
   );
-}
+};
 
+Input.propTypes = propTypes;
 export default Input;

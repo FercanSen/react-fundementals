@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Button({ onClick, buttonText, btnType }) {
-  Button.propTypes = {
-    onClick: PropTypes.func,
-    buttonText: PropTypes.string.isRequired,
-    btnType: PropTypes.string,
-  };
+const propTypes = {
+  onClick: PropTypes.func,
+  buttonText: PropTypes.string.isRequired,
+  btnType: PropTypes.string,
+};
+
+const Button = ({ onClick, buttonText, btnType }) => {
   return (
     <button
       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -16,6 +17,7 @@ function Button({ onClick, buttonText, btnType }) {
       {buttonText}
     </button>
   );
-}
+};
 
+Button.propTypes = propTypes;
 export default Button;

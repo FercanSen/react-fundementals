@@ -3,21 +3,21 @@ import Button from "../../../../common/Button/Button";
 import Input from "../../../../common/Input/Input";
 import PropTypes from "prop-types";
 
-function SearchBar({
+const propTypes = {
+  btnOnClick: PropTypes.func,
+  inputLabelText: PropTypes.string,
+  inputPlaceholderText: PropTypes.string,
+  inputValue: PropTypes.string,
+  onChange: PropTypes.func,
+};
+
+const SearchBar = ({
   btnOnClick,
   inputLabelText,
   inputPlaceholderText,
   inputValue,
   onChange,
-}) {
-  SearchBar.propTypes = {
-    btnOnClick: PropTypes.func,
-    inputLabelText: PropTypes.string,
-    inputPlaceholderText: PropTypes.string,
-    inputValue: PropTypes.string,
-    onChange: PropTypes.func,
-  };
-
+}) => {
   return (
     <div className="flex gap-2 items-center">
       <Input
@@ -30,6 +30,7 @@ function SearchBar({
       <Button buttonText={"Search"} onClick={btnOnClick} />
     </div>
   );
-}
+};
 
+SearchBar.propTypes = propTypes;
 export default SearchBar;

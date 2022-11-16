@@ -17,7 +17,7 @@ export const store = configureStore({
   },
 });
 
-function App() {
+const App = () => {
   return (
     <>
       <BrowserRouter>
@@ -33,6 +33,6 @@ function App() {
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;

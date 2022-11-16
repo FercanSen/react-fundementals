@@ -1,8 +1,8 @@
 import React from "react";
 import logo from "./logo.png";
 
-function Logo() {
+const Logo = () => {
   return <img className="h-full" src={logo} alt="App Logo" />;
-}
+};
 
 export default Logo;

@@ -5,13 +5,10 @@ import Button from "../../common/Button/Button";
 import { saveUser } from "../../store";
 import Logo from "./components/Logo/Logo";
 
-function Header() {
+const Header = () => {
   let location = useLocation();
-
-  const username = useSelector((state) => state.courses.user.name);
-
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.courses.user);
+  const username = useSelector((state) => state.courses.user.name);
 
   if (location.pathname === "/registration") {
     return (
@@ -43,6 +40,6 @@ function Header() {
         </div>
       </header>
     );
-}
+};
 
 export default Header;

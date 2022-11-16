@@ -3,17 +3,12 @@ import Button from "../../common/Button/Button";
 import formatCreationDate from "../../helpers/formatCreationDate";
 import getCourseDuration from "../../helpers/getCourseDuration";
 import AuthorItem from "./components/AuthorItem/AuthorItem";
-import PropTypes from "prop-types";
 import Input from "../../common/Input/Input";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addCourse, createAuthor } from "../../store";
 
-function CreateCourse() {
-  CreateCourse.propTypes = {
-    showCreateCourseForm: PropTypes.bool,
-    setShowCreateCourseForm: PropTypes.func,
-  };
+const CreateCourse = () => {
   const [authorInput, setAuthorInput] = useState("");
   const [duration, setDuration] = useState();
   const [courseAuthors, setCourseAuthors] = useState([]);
@@ -171,6 +166,6 @@ function CreateCourse() {
       </div>
     </form>
   );
-}
+};
 
 export default CreateCourse;

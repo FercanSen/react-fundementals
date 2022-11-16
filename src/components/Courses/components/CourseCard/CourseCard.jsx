@@ -6,23 +6,23 @@ import { useDispatch } from "react-redux";
 import { deleteCourse } from "../../../../store";
 import getAuthorNames from "../../../../helpers/getAuthorNames";
 
-function CourseCard({
+const propTypes = {
+  id: PropTypes.string,
+  title: PropTypes.string,
+  description: PropTypes.string.isRequired,
+  creationDate: PropTypes.string.isRequired,
+  duration: PropTypes.string.isRequired,
+  authors: PropTypes.array,
+};
+
+const CourseCard = ({
   id,
   title,
   description,
   creationDate,
   duration,
   authors,
-}) {
-  CourseCard.propTypes = {
-    id: PropTypes.string,
-    title: PropTypes.string,
-    description: PropTypes.string.isRequired,
-    creationDate: PropTypes.string.isRequired,
-    duration: PropTypes.string.isRequired,
-    authors: PropTypes.array,
-  };
-
+}) => {
   const dispatch = useDispatch();
 
   return (
@@ -52,6 +52,7 @@ function CourseCard({
       </div>
     </div>
   );
-}
+};
 
+CourseCard.propTypes = propTypes;
 export default CourseCard;

@@ -6,9 +6,8 @@ import Input from "../../common/Input/Input";
 import axios from "axios";
 import { saveUser } from "../../store";
 
-function Login() {
+const Login = () => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   function login(event) {
@@ -65,6 +64,6 @@ function Login() {
       </div>
     </form>
   );
-}
+};
 
 export default Login;

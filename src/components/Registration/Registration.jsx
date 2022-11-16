@@ -4,7 +4,7 @@ import Input from "../../common/Input/Input";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function Registration() {
+const Registration = () => {
   function submitRegister(event) {
     axios
       .post("http://localhost:4000/register", {
@@ -49,6 +49,6 @@ function Registration() {
       </div>
     </form>
   );
-}
+};
 
 export default Registration;

@@ -5,7 +5,7 @@ import Button from "../../common/Button/Button";
 import getAuthorNames from "../../helpers/getAuthorNames";
 import getCourseDuration from "../../helpers/getCourseDuration";
 
-function CourseInfo() {
+const CourseInfo = () => {
   let { courseId } = useParams();
   let title;
   let description;
@@ -58,6 +58,6 @@ function CourseInfo() {
       </div>
     </div>
   );
-}
+};
 
 export default CourseInfo;

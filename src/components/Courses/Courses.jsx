@@ -8,7 +8,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addAuthor, addCourse } from "../../store";
 
-export default function Courses() {
+const Courses = () => {
   const navigate = useNavigate();
 
   let courses = useSelector((state) => state.courses.courses);
@@ -66,4 +66,6 @@ export default function Courses() {
       })}
     </div>
   );
-}
+};
+
+export default Courses;
