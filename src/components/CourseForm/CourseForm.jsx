@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addCourse, createAuthor } from "../../store";
 
-const CreateCourse = () => {
+const CourseForm = () => {
   const [authorInput, setAuthorInput] = useState("");
   const [duration, setDuration] = useState();
   const [courseAuthors, setCourseAuthors] = useState([]);
@@ -168,4 +168,4 @@ const CreateCourse = () => {
   );
 };
 
-export default CreateCourse;
+export default CourseForm;
