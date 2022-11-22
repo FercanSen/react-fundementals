@@ -4,9 +4,8 @@ import CourseCard from "./components/CourseCard/CourseCard";
 import SearchBar from "./components/SearchBar/SearchBar";
 import getCourseDuration from "../../helpers/getCourseDuration";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addAuthor, addCourse } from "../../store";
+import { fetchAuthors, fetchCourses } from "../../store";
 
 const Courses = () => {
   const navigate = useNavigate();
@@ -15,22 +14,8 @@ const Courses = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/courses/all")
-      .then(function (response) {
-        dispatch(addCourse(response.data.result[0]));
-      })
-      .catch(function (error) {
-        console.log(error.response);
-      });
-    axios
-      .get("http://localhost:4000/authors/all")
-      .then(function (response) {
-        dispatch(addAuthor(response.data.result));
-      })
-      .catch(function (error) {
-        console.log(error.response);
-      });
+    dispatch(fetchCourses());
+    dispatch(fetchAuthors());
   }, []);
 
   useEffect(() => {

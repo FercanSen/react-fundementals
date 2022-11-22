@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const initialState = {
   user: {
@@ -7,22 +8,29 @@ export const initialState = {
     email: "", // default value - empty string. After success login - email of user
     token: "", // default value - empty string or token value from localStorage. After success login - value from API /login response.
   },
-  // todo: initialize this courses to an empty array, delete mock data
   courses: [], // list of courses. Default value - empty array. After success getting courses - value from API /courses/all response.
-  // todo: initialize this authors to empty an array, delete mock data
   authors: [], //  list of authors. Default value - empty array. After success getting authors - value from API /authors/all response.
 };
+
+export const fetchCourses = createAsyncThunk("fetchCourses", async () => {
+  const response = await axios.get("http://localhost:4000/courses/all");
+  return response.data.result[0];
+});
+export const fetchAuthors = createAsyncThunk("fetchAuthors", async () => {
+  const response = await axios.get("http://localhost:4000/authors/all");
+  return response.data.result;
+});
 
 const courses = createSlice({
   name: "courses",
   initialState,
   reducers: {
-    addCourse: (state, action) => {
-      state.courses = [action.payload, ...state.courses];
-    },
-    addAuthor: (state, action) => {
-      state.authors = action.payload;
-    },
+    // addCourse: (state, action) => {
+    //   state.courses = [action.payload, ...state.courses];
+    // },
+    // addAuthor: (state, action) => {
+    //   state.authors = action.payload;
+    // },
     deleteCourse: (state, action) => {
       const indexOfObject = state.courses.findIndex((object) => {
         return object.id === action.payload;
@@ -41,10 +49,35 @@ const courses = createSlice({
       };
     },
   },
+  extraReducers: (builder) => {
+    // Courses
+    builder.addCase(fetchCourses.pending, () => {
+      console.log("fetchCourses pending");
+    });
+    builder.addCase(fetchCourses.fulfilled, (state, action) => {
+      state.courses = [action.payload, ...state.courses];
+    });
+    builder.addCase(fetchCourses.rejected, () => {
+      console.log("fetchCourses rejected");
+      console.log("Error Ocurred!");
+    });
+    // Authors
+    builder.addCase(fetchAuthors.pending, () => {
+      console.log("fetchAuthors pending");
+    });
+    builder.addCase(fetchAuthors.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.authors = action.payload;
+    });
+    builder.addCase(fetchAuthors.rejected, () => {
+      console.log("fetchAuthors rejected");
+      console.log("Error Ocurred!");
+    });
+  },
 });
 
-export const { addCourse } = courses.actions;
-export const { addAuthor } = courses.actions;
+// export const { addCourse } = courses.actions;
+// export const { addAuthor } = courses.actions;
 export const { deleteCourse } = courses.actions;
 export const { createAuthor } = courses.actions;
 export const { saveUser } = courses.actions;
