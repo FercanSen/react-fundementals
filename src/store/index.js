@@ -46,6 +46,14 @@ export const getCurrentUser = createAsyncThunk("getCurrentUser", async () => {
   return;
 });
 
+export const deleteCourse = createAsyncThunk("deleteCourse", async (id) => {
+  console.log("Course ID: ");
+  console.log(id);
+  const response = await axios.get(`http://localhost:4000/courses/${id}`);
+  console.log(response.data.result);
+  return response.data.result;
+});
+
 const courses = createSlice({
   name: "courses",
   initialState,
@@ -56,12 +64,12 @@ const courses = createSlice({
     // addAuthor: (state, action) => {
     //   state.authors = action.payload;
     // },
-    deleteCourse: (state, action) => {
-      const indexOfObject = state.courses.findIndex((object) => {
-        return object.id === action.payload;
-      });
-      state.courses.splice(indexOfObject, 1);
-    },
+    // deleteCourse: (state, action) => {
+    //   const indexOfObject = state.courses.findIndex((object) => {
+    //     return object.id === action.payload;
+    //   });
+    //   state.courses.splice(indexOfObject, 1);
+    // },
     createAuthor: (state, action) => {
       state.authors = [action.payload, ...state.authors];
     },
@@ -99,12 +107,23 @@ const courses = createSlice({
       console.log("getCurrentUser rejected");
       console.log("Error Ocurred!");
     });
+    // Delete Course
+    builder.addCase(deleteCourse.fulfilled, (state, action) => {
+      const indexOfObject = state.courses.findIndex((object) => {
+        return object.id === action.payload.id;
+      });
+      state.courses.splice(indexOfObject, 1);
+    });
+    builder.addCase(deleteCourse.rejected, () => {
+      console.log("deleteCourse rejected");
+      console.log("Error Ocurred!");
+    });
   },
 });
 
 export const { addCourse } = courses.actions;
 // export const { addAuthor } = courses.actions;
-export const { deleteCourse } = courses.actions;
+// export const { deleteCourse } = courses.actions;
 export const { createAuthor } = courses.actions;
 export const { saveUser } = courses.actions;
 export default courses.reducer;

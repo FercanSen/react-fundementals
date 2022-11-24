@@ -49,6 +49,7 @@ const CourseCard = ({
                 buttonText={"Delete"}
                 onClick={() => {
                   dispatch(deleteCourse(id));
+                  // dispatch(deleteCourse(id));
                 }}
               />
               <Button buttonText={"Edit"} />
