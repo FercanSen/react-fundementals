@@ -5,18 +5,24 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import getCourseDuration from "../../helpers/getCourseDuration";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAuthors, fetchCourses } from "../../store";
+import { fetchAuthors, fetchCourses, getCurrentUser } from "../../store";
 
 const Courses = () => {
   const navigate = useNavigate();
-
-  let courses = useSelector((state) => state.courses.courses);
   const dispatch = useDispatch();
 
+  let courses = useSelector((state) => state.courses.courses);
+
   useEffect(() => {
+    dispatch(getCurrentUser());
     dispatch(fetchCourses());
     dispatch(fetchAuthors());
   }, []);
+
+  const user = useSelector((state) => state.courses.user);
+
+  console.log("User: ");
+  console.log(user);
 
   useEffect(() => {
     // IF user token exist navigate to courses, else register/login
@@ -31,10 +37,12 @@ const Courses = () => {
     <div className="m-8">
       <div className="flex justify-between">
         <SearchBar />
-        <Button
-          buttonText={"Add new course"}
-          onClick={() => navigate("/courses/add")}
-        />
+        {user.role === "admin" && (
+          <Button
+            buttonText={"Add new course"}
+            onClick={() => navigate("/courses/add")}
+          />
+        )}
       </div>
       {courses.map((element, index) => {
         return (

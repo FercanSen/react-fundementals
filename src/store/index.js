@@ -3,10 +3,11 @@ import axios from "axios";
 
 export const initialState = {
   user: {
-    isAuth: false, // default value - false. After success login - true
+    isAuth: "", // default value - false. After success login - true
     name: "", // default value - empty string. After success login - name of user
     email: "", // default value - empty string. After success login - email of user
     token: "", // default value - empty string or token value from localStorage. After success login - value from API /login response.
+    role: "",
   },
   courses: [], // list of courses. Default value - empty array. After success getting courses - value from API /courses/all response.
   authors: [], //  list of authors. Default value - empty array. After success getting authors - value from API /authors/all response.
@@ -23,10 +24,7 @@ export const fetchAuthors = createAsyncThunk("fetchAuthors", async () => {
 });
 
 export const swaggerLogout = createAsyncThunk("swaggerLogout", async () => {
-  console.log("swaggerLogout works");
   const token = localStorage["userToken"];
-  console.log("Token inside swagger");
-  console.log(token);
   const response = await axios.delete("http://localhost:4000/logout", {
     headers: {
       Authorization: token,
@@ -35,20 +33,18 @@ export const swaggerLogout = createAsyncThunk("swaggerLogout", async () => {
   return response.data.result;
 });
 
-// export const getCurrentUser = createAsyncThunk("getCurrentUser", async () => {
-//   console.log("AYNEN: ");
-//   console.log(localStorage["userToken"]);
-//   if (localStorage["userToken"]) {
-//     const token = localStorage["userToken"];
-//     const response = await axios.get("http://localhost:4000/users/me", {
-//       headers: {
-//         Authorization: token,
-//       },
-//     });
-//     return response.data.result;
-//   }
-//   return;
-// });
+export const getCurrentUser = createAsyncThunk("getCurrentUser", async () => {
+  if (localStorage["userToken"]) {
+    const token = localStorage["userToken"];
+    const response = await axios.get("http://localhost:4000/users/me", {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data.result;
+  }
+  return;
+});
 
 const courses = createSlice({
   name: "courses",
@@ -93,6 +89,14 @@ const courses = createSlice({
     });
     builder.addCase(fetchAuthors.rejected, () => {
       console.log("fetchAuthors rejected");
+      console.log("Error Ocurred!");
+    });
+    // User
+    builder.addCase(getCurrentUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
+    builder.addCase(getCurrentUser.rejected, () => {
+      console.log("getCurrentUser rejected");
       console.log("Error Ocurred!");
     });
   },

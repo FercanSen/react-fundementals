@@ -10,8 +10,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.courses.user.name);
 
-  console.log(localStorage["userToken"]);
-
   if (location.pathname === "/registration") {
     return (
       <header className="flex justify-between items-center h-20 mx-24 py-2">
