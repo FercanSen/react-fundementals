@@ -20,9 +20,11 @@ const Courses = () => {
   }, []);
 
   const user = useSelector((state) => state.courses.user);
+  let isAdmin = false;
 
-  console.log("User: ");
-  console.log(user);
+  if (user.role === "admin") {
+    isAdmin = true;
+  }
 
   useEffect(() => {
     // IF user token exist navigate to courses, else register/login
@@ -37,7 +39,7 @@ const Courses = () => {
     <div className="m-8">
       <div className="flex justify-between">
         <SearchBar />
-        {user.role === "admin" && (
+        {isAdmin && (
           <Button
             buttonText={"Add new course"}
             onClick={() => navigate("/courses/add")}
@@ -54,6 +56,7 @@ const Courses = () => {
             creationDate={element.creationDate}
             duration={getCourseDuration(element.duration)}
             authors={element.authors}
+            isAdmin={isAdmin}
           ></CourseCard>
         );
       })}

@@ -13,6 +13,7 @@ const propTypes = {
   creationDate: PropTypes.string.isRequired,
   duration: PropTypes.string.isRequired,
   authors: PropTypes.array,
+  isAdmin: PropTypes.bool,
 };
 
 const CourseCard = ({
@@ -22,6 +23,7 @@ const CourseCard = ({
   creationDate,
   duration,
   authors,
+  isAdmin,
 }) => {
   const dispatch = useDispatch();
 
@@ -41,13 +43,17 @@ const CourseCard = ({
           <Link to={`/courses/${id}`}>
             <Button buttonText={"Show Course"} />
           </Link>
-          <Button
-            buttonText={"Delete"}
-            onClick={() => {
-              dispatch(deleteCourse(id));
-            }}
-          />
-          <Button buttonText={"Edit"} />
+          {isAdmin && (
+            <>
+              <Button
+                buttonText={"Delete"}
+                onClick={() => {
+                  dispatch(deleteCourse(id));
+                }}
+              />
+              <Button buttonText={"Edit"} />
+            </>
+          )}
         </div>
       </div>
     </div>
