@@ -2,13 +2,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import Button from "../../common/Button/Button";
-import { saveUser } from "../../store";
+import { /* saveUser, */ swaggerLogout } from "../../store";
 import Logo from "./components/Logo/Logo";
 
 const Header = () => {
   let location = useLocation();
   const dispatch = useDispatch();
   const username = useSelector((state) => state.courses.user.name);
+
+  console.log(localStorage["userToken"]);
 
   if (location.pathname === "/registration") {
     return (
@@ -32,8 +34,9 @@ const Header = () => {
             <Button
               buttonText="Logout"
               onClick={() => {
+                dispatch(swaggerLogout());
                 localStorage.removeItem("userToken");
-                dispatch(saveUser([false, "", "", ""]));
+                // dispatch(saveUser([false, "", "", ""]));
               }}
             />
           </Link>

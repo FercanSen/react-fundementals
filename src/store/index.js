@@ -16,10 +16,39 @@ export const fetchCourses = createAsyncThunk("fetchCourses", async () => {
   const response = await axios.get("http://localhost:4000/courses/all");
   return response.data.result[0];
 });
+
 export const fetchAuthors = createAsyncThunk("fetchAuthors", async () => {
   const response = await axios.get("http://localhost:4000/authors/all");
   return response.data.result;
 });
+
+export const swaggerLogout = createAsyncThunk("swaggerLogout", async () => {
+  console.log("swaggerLogout works");
+  const token = localStorage["userToken"];
+  console.log("Token inside swagger");
+  console.log(token);
+  const response = await axios.delete("http://localhost:4000/logout", {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return response.data.result;
+});
+
+// export const getCurrentUser = createAsyncThunk("getCurrentUser", async () => {
+//   console.log("AYNEN: ");
+//   console.log(localStorage["userToken"]);
+//   if (localStorage["userToken"]) {
+//     const token = localStorage["userToken"];
+//     const response = await axios.get("http://localhost:4000/users/me", {
+//       headers: {
+//         Authorization: token,
+//       },
+//     });
+//     return response.data.result;
+//   }
+//   return;
+// });
 
 const courses = createSlice({
   name: "courses",
@@ -51,9 +80,6 @@ const courses = createSlice({
   },
   extraReducers: (builder) => {
     // Courses
-    builder.addCase(fetchCourses.pending, () => {
-      console.log("fetchCourses pending");
-    });
     builder.addCase(fetchCourses.fulfilled, (state, action) => {
       state.courses = [action.payload, ...state.courses];
     });
@@ -62,11 +88,7 @@ const courses = createSlice({
       console.log("Error Ocurred!");
     });
     // Authors
-    builder.addCase(fetchAuthors.pending, () => {
-      console.log("fetchAuthors pending");
-    });
     builder.addCase(fetchAuthors.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.authors = action.payload;
     });
     builder.addCase(fetchAuthors.rejected, () => {
@@ -76,7 +98,7 @@ const courses = createSlice({
   },
 });
 
-// export const { addCourse } = courses.actions;
+export const { addCourse } = courses.actions;
 // export const { addAuthor } = courses.actions;
 export const { deleteCourse } = courses.actions;
 export const { createAuthor } = courses.actions;
