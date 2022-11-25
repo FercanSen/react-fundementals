@@ -24,7 +24,7 @@
     "eslint:fix": "eslint --fix --ext .js --ext .jsx src",
     "test:nowatch": "react-scripts test --watchAll=false",
     "prepare": "husky install",
-    "prepublish": "npm run eslint:fix",
+    "prepublish": "npm run eslint:fix && npm run test:nowatch",
     "create-hook": "husky add .husky/pre-commit \"npm test\"",
     "scriptname": "cmd"
   },
@@ -41,7 +41,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.20.2",
     "autoprefixer": "^10.4.12",
+    "babel-jest": "^29.3.1",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
@@ -53,10 +55,14 @@
     "husky": "^8.0.1",
     "postcss": "^8.4.18",
     "prettier": "^2.7.1",
+    "react-test-renderer": "^18.2.0",
     "tailwindcss": "^3.2.1"
   },
   "main": "index.js",
   "author": "FercanSen <fercansen@gmail.com>",
   "license": "MIT",
-  "description": "Hometask project"
+  "description": "Hometask project",
+  "transform": {
+    "\\.[jt]sx?$": "babel-jest"
+  }
 }
