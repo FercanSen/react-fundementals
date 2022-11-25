@@ -12,7 +12,6 @@ function PrivateRoute({ children }) {
   const user = useSelector((state) => state.courses.user);
 
   if (user.role === "admin") {
-    console.log("User is admin");
     return <CourseForm />;
   } else children;
 }

@@ -48,15 +48,11 @@ export const getCurrentUser = createAsyncThunk("getCurrentUser", async () => {
 
 export const deleteCourse = createAsyncThunk("deleteCourse", async (id) => {
   const response = await axios.get(`http://localhost:4000/courses/${id}`);
-  console.log(response.data.result);
   return response.data.result;
 });
 
 export const addCourse = createAsyncThunk("addCourse", async (courseData) => {
-  console.log("Add Course!");
-  console.log(courseData);
   const token = localStorage["userToken"];
-
   const response = await axios.post(
     "http://localhost:4000/courses/add",
     courseData,
@@ -66,17 +62,32 @@ export const addCourse = createAsyncThunk("addCourse", async (courseData) => {
       },
     }
   );
-  console.log(response.data.result);
   return response.data.result;
 });
+
+export const createAuthor = createAsyncThunk(
+  "createAuthor",
+  async (authorName) => {
+    const token = localStorage["userToken"];
+    const response = await axios.post(
+      "http://localhost:4000/authors/add",
+      {
+        name: authorName,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data.result;
+  }
+);
 
 const courses = createSlice({
   name: "courses",
   initialState,
   reducers: {
-    // addAuthor: (state, action) => {
-    //   state.authors = action.payload;
-    // },
     createAuthor: (state, action) => {
       state.authors = [action.payload, ...state.authors];
     },
@@ -133,9 +144,16 @@ const courses = createSlice({
       console.log("addCourse rejected");
       console.log("Error Ocurred!");
     });
+    // Add Author
+    builder.addCase(createAuthor.fulfilled, (state, action) => {
+      state.authors = [action.payload, ...state.authors];
+    });
+    builder.addCase(createAuthor.rejected, () => {
+      console.log("createAuthor rejected");
+      console.log("Error Ocurred!");
+    });
   },
 });
 
-export const { createAuthor } = courses.actions;
 export const { saveUser } = courses.actions;
 export default courses.reducer;

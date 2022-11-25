@@ -14,17 +14,17 @@ const CourseForm = () => {
   const [courseAuthors, setCourseAuthors] = useState([]);
 
   const navigate = useNavigate();
-  const authors = useSelector((state) => state.courses.authors);
   const dispatch = useDispatch();
+  const authors = useSelector((state) => state.courses.authors);
 
   const handleChange = (event) => {
     setAuthorInput(event.target.value);
   };
 
-  function addAuthor(authorName) {
-    if (courseAuthors.includes(authorName)) return;
+  function addAuthor(author) {
+    if (courseAuthors.includes(author)) return;
 
-    setCourseAuthors([...courseAuthors, authorName]);
+    setCourseAuthors([...courseAuthors, author]);
   }
 
   function deleteAuthor(authorName) {
@@ -38,7 +38,9 @@ const CourseForm = () => {
         title: event.target.elements.title.value,
         description: event.target.elements.description.value,
         duration: Number(event.target.elements.duration.value),
-        authors: courseAuthors,
+        authors: courseAuthors.map((author) => {
+          return author.id;
+        }),
       })
     );
     navigate("/courses");
@@ -88,17 +90,7 @@ const CourseForm = () => {
                 btnType={"button"}
                 buttonText={"Create author"}
                 onClick={() => {
-                  let shouldReturn = false;
-                  authors.forEach((element) => {
-                    if (element.name === authorInput) {
-                      shouldReturn = true;
-                      return;
-                    }
-                  });
-                  if (shouldReturn) return;
-                  dispatch(
-                    createAuthor({ name: authorInput, id: Math.random() })
-                  );
+                  dispatch(createAuthor(authorInput));
                 }}
               />
             </div>
@@ -110,7 +102,7 @@ const CourseForm = () => {
                   key={index}
                   authorName={element.name}
                   btnText="Add author"
-                  btnOnClick={() => addAuthor(element.id)}
+                  btnOnClick={() => addAuthor(element)}
                   btnType={"button"}
                 />
               );
@@ -135,15 +127,17 @@ const CourseForm = () => {
             <h2 className="my-2">Duration: {getCourseDuration(duration)}</h2>
           </div>
           <div className="w-1/2">
-            {courseAuthors.map((element, index) => (
-              <AuthorItem
-                key={index}
-                authorName={element}
-                btnOnClick={() => deleteAuthor(element)}
-                btnText="Delete author"
-                btnType={"button"}
-              />
-            ))}
+            {courseAuthors.map((element, index) => {
+              return (
+                <AuthorItem
+                  key={index}
+                  authorName={element.name}
+                  btnOnClick={() => deleteAuthor(element)}
+                  btnText="Delete author"
+                  btnType={"button"}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
