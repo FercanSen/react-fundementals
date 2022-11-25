@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../common/Button/Button";
-import formatCreationDate from "../../helpers/formatCreationDate";
+// import formatCreationDate from "../../helpers/formatCreationDate";
 import getCourseDuration from "../../helpers/getCourseDuration";
 import AuthorItem from "./components/AuthorItem/AuthorItem";
 import Input from "../../common/Input/Input";
@@ -12,25 +12,10 @@ const CourseForm = () => {
   const [authorInput, setAuthorInput] = useState("");
   const [duration, setDuration] = useState();
   const [courseAuthors, setCourseAuthors] = useState([]);
+
   const navigate = useNavigate();
   const authors = useSelector((state) => state.courses.authors);
   const dispatch = useDispatch();
-
-  // const createAuthor = () => {
-  //   let shouldReturn = false;
-  //   mockedAuthorsList.forEach((element) => {
-  //     if (element.name === authorInput) {
-  //       shouldReturn = true;
-  //       return;
-  //     }
-  //   });
-  //   if (shouldReturn) return;
-
-  //   if (authorInput)
-  //     mockedAuthorsList.push({ id: authorId, name: authorInput });
-
-  //   setAuthorInput("");
-  // };
 
   const handleChange = (event) => {
     setAuthorInput(event.target.value);
@@ -50,11 +35,9 @@ const CourseForm = () => {
     event.preventDefault();
     dispatch(
       addCourse({
-        id: Math.random().toString(),
         title: event.target.elements.title.value,
         description: event.target.elements.description.value,
-        creationDate: formatCreationDate(),
-        duration: event.target.elements.duration.value,
+        duration: Number(event.target.elements.duration.value),
         authors: courseAuthors,
       })
     );

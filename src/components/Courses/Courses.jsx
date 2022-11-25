@@ -13,10 +13,6 @@ const Courses = () => {
 
   let courses = useSelector((state) => state.courses.courses);
 
-  if (courses[0]) {
-    console.log(courses[0].id);
-  }
-
   useEffect(() => {
     dispatch(getCurrentUser());
     dispatch(fetchCourses());

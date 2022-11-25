@@ -7,7 +7,6 @@ import Courses from "./components/Courses/Courses";
 import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
 import CourseInfo from "./components/CourseInfo/CourseInfo";
-// import CourseForm from "./components/CourseForm/CourseForm";
 import { configureStore } from "@reduxjs/toolkit";
 import courses from "./store";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
@@ -36,7 +35,6 @@ const App = () => {
               </PrivateRoute>
             }
           />
-          {/* <Route path="/courses/add" element={<CourseForm />} /> */}
           <Route path="/courses/:courseId" element={<CourseInfo />} />
         </Routes>
       </BrowserRouter>

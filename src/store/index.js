@@ -47,9 +47,25 @@ export const getCurrentUser = createAsyncThunk("getCurrentUser", async () => {
 });
 
 export const deleteCourse = createAsyncThunk("deleteCourse", async (id) => {
-  console.log("Course ID: ");
-  console.log(id);
   const response = await axios.get(`http://localhost:4000/courses/${id}`);
+  console.log(response.data.result);
+  return response.data.result;
+});
+
+export const addCourse = createAsyncThunk("addCourse", async (courseData) => {
+  console.log("Add Course!");
+  console.log(courseData);
+  const token = localStorage["userToken"];
+
+  const response = await axios.post(
+    "http://localhost:4000/courses/add",
+    courseData,
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
   console.log(response.data.result);
   return response.data.result;
 });
@@ -58,17 +74,8 @@ const courses = createSlice({
   name: "courses",
   initialState,
   reducers: {
-    // addCourse: (state, action) => {
-    //   state.courses = [action.payload, ...state.courses];
-    // },
     // addAuthor: (state, action) => {
     //   state.authors = action.payload;
-    // },
-    // deleteCourse: (state, action) => {
-    //   const indexOfObject = state.courses.findIndex((object) => {
-    //     return object.id === action.payload;
-    //   });
-    //   state.courses.splice(indexOfObject, 1);
     // },
     createAuthor: (state, action) => {
       state.authors = [action.payload, ...state.authors];
@@ -118,12 +125,17 @@ const courses = createSlice({
       console.log("deleteCourse rejected");
       console.log("Error Ocurred!");
     });
+    // Add Course
+    builder.addCase(addCourse.fulfilled, (state, action) => {
+      state.courses = [action.payload, ...state.courses];
+    });
+    builder.addCase(addCourse.rejected, () => {
+      console.log("addCourse rejected");
+      console.log("Error Ocurred!");
+    });
   },
 });
 
-export const { addCourse } = courses.actions;
-// export const { addAuthor } = courses.actions;
-// export const { deleteCourse } = courses.actions;
 export const { createAuthor } = courses.actions;
 export const { saveUser } = courses.actions;
 export default courses.reducer;
