@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import Button from "../../common/Button/Button";
-import { /* saveUser, */ swaggerLogout } from "../../store";
+import { logout } from "../../store";
 import Logo from "./components/Logo/Logo";
 
 const Header = () => {
@@ -32,9 +32,8 @@ const Header = () => {
             <Button
               buttonText="Logout"
               onClick={() => {
-                dispatch(swaggerLogout());
+                dispatch(logout());
                 localStorage.removeItem("userToken");
-                // dispatch(saveUser([false, "", "", ""]));
               }}
             />
           </Link>

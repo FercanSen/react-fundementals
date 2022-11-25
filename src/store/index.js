@@ -23,7 +23,7 @@ export const fetchAuthors = createAsyncThunk("fetchAuthors", async () => {
   return response.data.result;
 });
 
-export const swaggerLogout = createAsyncThunk("swaggerLogout", async () => {
+export const logout = createAsyncThunk("logout", async () => {
   const token = localStorage["userToken"];
   const response = await axios.delete("http://localhost:4000/logout", {
     headers: {
