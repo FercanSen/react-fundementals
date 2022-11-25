@@ -7,9 +7,10 @@ import Courses from "./components/Courses/Courses";
 import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
 import CourseInfo from "./components/CourseInfo/CourseInfo";
-import CourseForm from "./components/CourseForm/CourseForm";
+// import CourseForm from "./components/CourseForm/CourseForm";
 import { configureStore } from "@reduxjs/toolkit";
 import courses from "./store";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 export const store = configureStore({
   reducer: {
@@ -27,7 +28,15 @@ const App = () => {
           <Route path="/courses" element={<Courses />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/courses/add" element={<CourseForm />} />
+          <Route
+            path="/courses/add"
+            element={
+              <PrivateRoute>
+                <Registration />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route path="/courses/add" element={<CourseForm />} /> */}
           <Route path="/courses/:courseId" element={<CourseInfo />} />
         </Routes>
       </BrowserRouter>
