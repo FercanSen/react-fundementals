@@ -22,5 +22,5 @@ test("test", () => {
   const logo = screen.getByTestId("logo");
   expect(username).toBeInTheDocument();
   expect(logo).toBeInTheDocument();
-  screen.debug();
+  // screen.debug();
 });
